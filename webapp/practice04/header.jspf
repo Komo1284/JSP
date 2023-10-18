@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+
+	
+		<%-- 
+		.jspf (Java Server Page Fragment) 파일은
+		jsp의 일부분(조각)으로 다른 jsp에 포함되도록 만들어졌다.
+		반복 사용되는 것을 jspf 로 뽑아서 jsp 파일에서 include 한다.
+		--%>
+
+<br><hr>
+
+<a href="#">공지사항</a>
+
+&
