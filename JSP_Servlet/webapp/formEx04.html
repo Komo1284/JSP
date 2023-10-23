@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<h2>학생정보 입력</h2>
+
+	<form action="/JSP_Servlet/student2" method="post">
+	
+		학번 : <input type="text" name="studentID"><br>
+		이름 : <input type="text" name="name"><br>
+		
+		나이 : <input type="number" name="age"><br>
+		전공 : <input type="radio" name="major" value="제과제빵학과">제과제빵학과
+		<input type="radio" name="major" value="유아교육과">유아교육과
+		<input type="radio" name="major" value="사회체육학과">사회체육학과
+		<input type="radio" name="major" value="컴퓨터공학과">컴퓨터공학과
+		<br>
+		
+		동아리 : <input type="checkbox" name="circle" value="등산동아리">등산동아리
+		<input type="checkbox" name="circle" value="절주동아리">절주동아리
+		<input type="checkbox" name="circle" value="밴드동아리">밴드동아리
+		<input type="checkbox" name="circle" value="로타렉트">로타렉트
+		<br>
+		
+		
+		
+		<br>
+		
+		<input type="submit" value="학생정보 전송">
+	
+	</form>
+</body>
+</html>
