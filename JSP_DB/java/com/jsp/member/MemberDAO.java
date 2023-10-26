@@ -14,7 +14,6 @@ public class MemberDAO {
 	// 데이터베이스의 DAta에 접근하여
 	// CRUD 를 처리하는 객체
 	
-	//
 	
 	private Connection conn;
 	private PreparedStatement pstmt;
@@ -24,6 +23,62 @@ public class MemberDAO {
 	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
 	private String uid = "C##JSPUSER";
 	private String upw = "jsp123";
+	
+	// 싱글톤 : 단 하나의 객체만 생성하는 것.
+	private MemberDAO() {
+		
+	}
+	
+	private static MemberDAO instance = new MemberDAO();
+	
+	public static MemberDAO getInstance() {
+		return instance;
+	}
+	
+	// 싱글톤을 사용하는 이유
+	// 고정된 메모리 영역을 얻으면서 한번의 new 로 인스턴스를 사용하기 때문에
+	// 메모리 낭비를 방지할 수 있다.
+	
+	private void close(Connection conn) {
+		
+		try {
+			
+			if(conn != null) {
+				conn.close();
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void close(PreparedStatement pstmt) {
+		
+		try {
+			
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void close(ResultSet rs) {
+		
+		try {
+			
+			if(rs != null) {
+				rs.close();
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	// 회원가입 > 로그인 > 로그아웃 > 회원수정 > 회원삭제
 	
@@ -49,12 +104,8 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			
-			try {
-				
-				if(pstmt != null)pstmt.close();
-				if(conn != null)conn.close();
-				
-			}catch(Exception e2) {}
+			close(conn);
+			close(pstmt);
 			
 		}
 		
@@ -91,9 +142,9 @@ public class MemberDAO {
 			
 			try {
 				
-				if(rs != null)rs.close();
-				if(pstmt != null)pstmt.close();
-				if(conn != null)conn.close();
+				close(rs);
+				close(conn);
+				close(pstmt);
 				
 			}catch(Exception e2) {}
 			
@@ -139,13 +190,9 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			
-			try {
-				
-				if(rs != null)rs.close();
-				if(conn != null)conn.close();
-				if(pstmt != null)pstmt.close();
-				
-			}catch(Exception e2) {}
+			close(rs);
+			close(conn);
+			close(pstmt);
 			
 		}
 		
@@ -191,13 +238,9 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			
-			try {
-				
-				if(rs != null)rs.close();
-				if(conn != null)conn.close();
-				if(pstmt != null)pstmt.close();
-				
-			}catch(Exception e2) {}
+			close(rs);
+			close(conn);
+			close(pstmt);
 			
 		}
 		
@@ -230,12 +273,8 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			
-			try {
-				
-				if(conn != null)conn.close();
-				if(pstmt != null)pstmt.close();
-				
-			}catch(Exception e2) {}
+			close(conn);
+			close(pstmt);
 			
 		}
 		
@@ -265,12 +304,8 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			
-			try {
-				
-				if(conn != null)conn.close();
-				if(pstmt != null)pstmt.close();
-				
-			}catch(Exception e2) {}
+			close(conn);
+			close(pstmt);
 			
 		}
 		
