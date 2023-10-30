@@ -6,9 +6,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
-import org.eclipse.jdt.internal.compiler.classfmt.FieldInfoWithAnnotation;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class MemberDAO {
+	
+	private DataSource ds;
+	// DataSource 객체는 Connection Pool 을 관리하는 객체
+	// 이 객체는 JNDI (Java Naming Directory Interface)
+	// API 를 통해서 사용한다.
+	// JNDI : "이름"을 가지고 데이터베이스 "정보"를 얻을 수 있는 API
+	
 
 	// DAO : Data Access Object
 	// 데이터베이스의 DAta에 접근하여
@@ -19,13 +28,24 @@ public class MemberDAO {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
-	private String driver = "oracle.jdbc.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	private String uid = "C##JSPUSER";
-	private String upw = "jsp123";
+//	private String driver = "oracle.jdbc.OracleDriver";
+//	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+//	private String uid = "C##JSPUSER";
+//	private String upw = "jsp123";
 	
 	// 싱글톤 : 단 하나의 객체만 생성하는 것.
 	private MemberDAO() {
+		
+		try {
+			
+			Context context = new InitialContext();
+			// Context : JNDI 서비스를 제공하는 객체
+			
+			ds = (DataSource) context.lookup("java:comp/env/jdbc/oracle");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -88,8 +108,11 @@ public class MemberDAO {
 		String query = "INSERT INTO MEMBER(ID, PW, NAME, EMAIL, ADDRESS, ) " + "VALUES(?, ?, ?, ?, ?)";
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, uid, upw);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, uid, upw);
+			
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(query);
 			
 			pstmt.setString(1, dto.getId());
@@ -121,8 +144,11 @@ public class MemberDAO {
 		// 아이디가 있으면 TRUE 반환, 없으면 FALSE 반환
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, uid, upw);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, uid, upw);
+			
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(query);
 			
 			pstmt.setString(1, id);
@@ -165,8 +191,12 @@ public class MemberDAO {
 		
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, uid, upw);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, uid, upw);
+			
+
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(query);
 			
 			pstmt.setString(1, id);
@@ -208,8 +238,12 @@ public class MemberDAO {
 		
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, uid, upw);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, uid, upw);
+			
+
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(query);
 			
 			rs = pstmt.executeQuery();
@@ -257,8 +291,11 @@ public class MemberDAO {
 		
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, uid, upw);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, uid, upw);
+
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(query);
 			
 			pstmt.setString(1, dto.getPw());
@@ -290,8 +327,11 @@ public class MemberDAO {
 		
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, uid, upw);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, uid, upw);
+
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(query);
 			
 			pstmt.setString(1, id);
