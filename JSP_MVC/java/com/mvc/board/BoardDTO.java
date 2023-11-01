@@ -4,11 +4,11 @@ import java.sql.Timestamp;
 
 public class BoardDTO {
 
-////	BOARD_ID	NUMBER(4,0)
+//	BOARD_ID	NUMBER(4,0)
 //	WRITER	NVARCHAR2(50 CHAR)
 //	TITLE	NVARCHAR2(50 CHAR)
 //	CONTENT	NVARCHAR2(500 CHAR)
-//	BOARD_DATA	TIMESTAMP(6)
+//	BOARD_DATE	TIMESTAMP(6)
 //	HIT	NUMBER(4,0)
 	
 	private int boardID;
